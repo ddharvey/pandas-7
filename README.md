@@ -1,1 +1,2 @@
 # MERN-boilerplate
+# mern-boilerplate
