@@ -5,26 +5,38 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
-  const handleAddTodo = () => {
-    setTodos([...todos, inputValue]);
-    setInputValue('');
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
   };
 
-  const handleRemoveTodo = (indexToRemove) => {
-    const newTodos = todos.filter((todo, index) => index !== indexToRemove);
+  const handleAddTodo = () => {
+    if (inputValue !== '') {
+      setTodos([...todos, inputValue]);
+      setInputValue('');
+    }
+  };
+
+  const handleDeleteTodo = (index) => {
+    const newTodos = [...todos];
+    newTodos.splice(index, 1);
     setTodos(newTodos);
   };
 
   return (
     <div>
-      <h1>Todo List App</h1>
-      <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-      <button onClick={handleAddTodo}>Add Todo</button>
+      <h1>Todo List</h1>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        placeholder="Enter a new todo item"
+      />
+      <button onClick={handleAddTodo}>Add</button>
       <ul>
         {todos.map((todo, index) => (
           <li key={index}>
             {todo}
-            <button onClick={() => handleRemoveTodo(index)}>Remove</button>
+            <button onClick={() => handleDeleteTodo(index)}>Delete</button>
           </li>
         ))}
       </ul>
